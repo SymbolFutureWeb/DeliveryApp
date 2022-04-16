@@ -1,5 +1,9 @@
 const { alterUser } = require("../services");
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const { User } = require("../models");
+const Users = mongoose.model("User");
+const configs = require("../../config");
 
 const alterUsers = (req, res) => {
   const { user } = req.body;
@@ -12,17 +16,12 @@ const alterUsers = (req, res) => {
       upsert: true,
       new: true,
     };
-  alterUser(query, update, options);
+  alterUser.alterUser(query, update, options);
   return res.status(200).json({ message: "Done !" });
 };
 
 const authenticate = (req, res) => {
-  const { user } = req.body;
-  const query = {
-    _id: mongoose.Types.ObjectId(user._id),
-  };
-  console.log("req", req.body);
-  User.findOne({ Email: req.body.Email }, function (err, user) {
+  Users.findOne({ mail: req.body.mail }, function (err, user) {
     console.log("second step", user);
     if (!user) {
       console.log("verifie email");
@@ -30,7 +29,7 @@ const authenticate = (req, res) => {
         .status(401)
         .send({ success: false, msg: " email  is incorrect" });
     }
-    if (user.Source === "Local") {
+    if (user.source === "local") {
       console.log("got in");
       if (!user) {
         console.log("verifie email");
@@ -39,7 +38,7 @@ const authenticate = (req, res) => {
           .send({ success: false, msg: " email  is incorrect" });
       }
 
-      if (!user.validPassword(req.body.Password)) {
+      if (!user.validPassword(req.body.mdp)) {
         console.log("verified");
         return res
           .status(403)
@@ -63,7 +62,7 @@ const authenticate = (req, res) => {
         },
       };
       console.log("sending  token");
-      var token = jwt.sign(userData, config.secret.value, {
+      var token = jwt.sign(userData, configs.SIGN, {
         expiresIn: 60,
       });
       UserTokenData = { token: token };
@@ -79,4 +78,17 @@ const authenticate = (req, res) => {
   });
 };
 
-module.exports = { alterUsers, authenticate };
+const addUser = async (req, res) => {
+  const { body } = req;
+  return await alterUser
+    .addUser(body)
+    .then((response) => {
+      // console.log(response);
+      return res.status(200).json(response);
+    })
+    .catch((error) => {
+      return res.status(500).json(error);
+    });
+};
+
+module.exports = { alterUsers, authenticate, addUser };

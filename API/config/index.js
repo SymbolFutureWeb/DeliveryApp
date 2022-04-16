@@ -4,8 +4,9 @@ const env = require("dotenv");
 env.config({ path: join(__dirname, "..", ".env") });
 
 module.exports = {
-  PORT: process.env.PORT || 5000,
+  PORT: process.env.SERVER_PORT || 5000,
+  SIGN: "SymbolAwid123698521",
   MONGO: {
-    uri: `mongodb://${process.env.MONGO_HOST}/${process.env.MONGO_DB}`,
+    uri: `${process.env.MONGO_URL}/${process.env.MONGO_DB}`,
   },
 };
