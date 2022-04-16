@@ -1,7 +1,6 @@
 const { alterUser } = require("../services");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const { User } = require("../models");
 const Users = mongoose.model("User");
 const configs = require("../../config");
 
@@ -22,15 +21,12 @@ const alterUsers = (req, res) => {
 
 const authenticate = (req, res) => {
   Users.findOne({ mail: req.body.mail }, function (err, user) {
-    console.log("second step", user);
     if (!user) {
-      console.log("verifie email");
       return res
         .status(401)
         .send({ success: false, msg: " email  is incorrect" });
     }
     if (user.source === "local") {
-      console.log("got in");
       if (!user) {
         console.log("verifie email");
         return res
@@ -44,7 +40,6 @@ const authenticate = (req, res) => {
           .status(403)
           .send({ success: false, msg: " password is incorrect." });
       }
-      console.log("parsing user");
       var userData = {
         _id: user._id,
         name: user.name,
