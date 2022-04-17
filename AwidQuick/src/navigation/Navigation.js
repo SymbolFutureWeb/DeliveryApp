@@ -44,8 +44,8 @@ function signUpStack() {
       initialRouteName="Login"
       screenOptions={{ headerShown: false }}
     >
-      <signUpStackNavigator.Screen name="Login" component={Login} />
       <signUpStackNavigator.Screen name="Register" component={Register} />
+      <signUpStackNavigator.Screen name="Login" component={Login} />
     </signUpStackNavigator.Navigator>
   );
 }

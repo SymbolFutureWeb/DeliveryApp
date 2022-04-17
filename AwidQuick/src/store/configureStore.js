@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from "redux";
 
-import authReducer from "./Reducers/authReducer";
-import langueReducer from "./Reducers/langueReducer";
+import authReducer from "./reducers/authReducer";
+import langueReducer from "./reducers/langueReducer";
 
 export default createStore(
   combineReducers({
