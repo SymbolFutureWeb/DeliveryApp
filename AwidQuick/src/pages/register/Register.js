@@ -94,7 +94,7 @@ function Register({ route, navigation }) {
                 {i18n.t("sdaqRegisterLabel7")}{" "}
                 <Text
                   style={{ color: "#16be5a", fontWeight: "bold" }}
-                  onPress={() => navigation.navigate("loginScreen")}
+                  onPress={() => navigation.navigate("Login")}
                 >
                   {i18n.t("sdaqRegisterLabel8")}
                 </Text>{" "}
@@ -206,7 +206,7 @@ function Register({ route, navigation }) {
               colors={["#16be5a", "#95e88e", "#fff99a"]}
               style={styles.linearGradient}
             >
-              <Text style={styles.buttonTextLinear}>Sign in</Text>
+              <Text style={styles.buttonTextLinear}>Sign up</Text>
               <TouchableOpacity
                 style={styles.icon1}
                 onPress={() => {

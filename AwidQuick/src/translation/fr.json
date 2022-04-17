@@ -6,5 +6,13 @@
     "sdaqRegisterLabel5": "Confirmer mot de passe",
     "sdaqRegisterLabel6": "Se connecter",
     "sdaqRegisterLabel7": "Avez vous un compte!",
-    "sdaqRegisterLabel8": "Se connecter"
+    "sdaqRegisterLabel8": "Se connecter",
+    "sdaqLoginLabel1": "Welcome !",
+    "sdaqLoginLabel2": "Create your account",
+    "sdaqLoginLabel3": "Email",
+    "sdaqLoginLabel4": "o",
+    "sdaqLoginLabel5": "Confirm Password",
+    "sdaqLoginLabel6": "Login",
+    "sdaqLoginLabel7": "Nouvel utilisateur ?",
+    "sdaqLoginLabel8": "S'enregistrer"
 }
