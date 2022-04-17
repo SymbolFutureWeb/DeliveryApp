@@ -38,10 +38,10 @@ const signUpStackNavigator = createStackNavigator();
 //   );
 // }
 
-function signUpStack() {
+function SignUpStack() {
   return (
     <signUpStackNavigator.Navigator
-      initialRouteName="Login"
+      initialRouteName="Register"
       screenOptions={{ headerShown: false }}
     >
       <signUpStackNavigator.Screen name="Register" component={Register} />
@@ -90,7 +90,7 @@ function Navigation({ isSignedOut, user }) {
         >
           <mainStackNavigator.Screen
             name="RegisterStack"
-            component={signUpStack}
+            component={SignUpStack}
           />
           {/* <mainStackNavigator.Screen name="TabNav" component={bottomTabNav} /> */}
           {/* <mainStackNavigator.Screen name="AdminDash" component={adminStack} /> */}

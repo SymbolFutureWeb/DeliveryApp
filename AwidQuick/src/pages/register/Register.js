@@ -9,7 +9,17 @@ import {
   SafeAreaView,
   Image,
   Alert,
+  StatusBar,
 } from "react-native";
+import CheckBox from "@react-native-community/checkbox";
+import LinearGradient from "react-native-linear-gradient";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faEnvelope,
+  faLock,
+  faPhone,
+  faPaperPlane,
+} from "@fortawesome/free-solid-svg-icons";
 // import {verifyByEmail} from '../../API/UserAPI';
 
 import i18n from "../../translation/index";
@@ -37,6 +47,7 @@ function Register({ route, navigation }) {
   const [error, setError] = useState("");
   const [passBoolean, setPassBoolean] = useState(true);
   const [showPassword, setShowPassword] = useState(true);
+  const [terms, setTerms] = useState(false);
 
   const submitAction = () => {
     const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -66,33 +77,53 @@ function Register({ route, navigation }) {
         height: Dimensions.get("window").height,
       }}
     >
+      <StatusBar backgroundColor="#16be5a" barStyle="light-content" />
       <View style={styles.mainContainer}>
-        {/* <Image
-          source={require('../../Assets/images/logoNoir.png')}
+        <Image
+          source={require("../../assets/images/plat.jpg")}
           style={{
-            height: Dimensions.get('window').height * 0.15,
-            width: Dimensions.get('window').height * 0.15,
+            height: Dimensions.get("window").height * 0.3,
+            width: Dimensions.get("window").height * 0.4,
           }}
-        /> */}
-        <View style={styles.titleContainer}>
-          <Text style={styles.h1}>{i18n.t("sdaqRegisterLabel1")}</Text>
-          <Text style={styles.h2}>{i18n.t("sdaqRegisterLabel2")}</Text>
-        </View>
+        />
         <View style={styles.form}>
-          <View style={styles.fieldContainer}>
-            <Text style={styles.fieldTitle}>
-              {i18n.t("sdaqRegisterLabel3")}
-            </Text>
-            <TextInput
-              style={styles.textField}
-              placeholder="Enter your email"
-              onChangeText={(text) => setEmail(text.toLowerCase())}
-            />
+          <View style={styles.formHeader}>
+            <Text style={styles.formHeaderText}>SIGNUP</Text>
+            <View>
+              <Text>
+                {i18n.t("sdaqRegisterLabel7")}{" "}
+                <Text
+                  style={{ color: "#16be5a", fontWeight: "bold" }}
+                  onPress={() => navigation.navigate("loginScreen")}
+                >
+                  {i18n.t("sdaqRegisterLabel8")}
+                </Text>{" "}
+              </Text>
+            </View>
           </View>
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldTitle}>
-              {i18n.t("sdaqRegisterLabel4")}
-            </Text>
+            <View style={styles.fieldView}>
+              <TextInput
+                style={styles.fieldInput}
+                placeholder="Enter your email"
+                onChangeText={(text) => setEmail(text.toLowerCase())}
+              />
+              <TouchableOpacity
+                style={styles.icon1}
+                onPress={() => {
+                  setShowPassword(!showPassword);
+                }}
+              >
+                <FontAwesomeIcon
+                  style={styles.icon}
+                  icon={faEnvelope}
+                  color="#43ef98"
+                  size={20}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.fieldContainer}>
             <View style={styles.passwordTextField}>
               <TextInput
                 style={styles.passwordTextInput}
@@ -100,12 +131,22 @@ function Register({ route, navigation }) {
                 placeholder="Enter your password"
                 onChangeText={(text) => setPassword(text)}
               />
+              <TouchableOpacity
+                style={styles.icon1}
+                onPress={() => {
+                  setShowPassword(!showPassword);
+                }}
+              >
+                <FontAwesomeIcon
+                  style={styles.icon}
+                  icon={faLock}
+                  color="#43ef98"
+                  size={20}
+                />
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldTitle}>
-              {i18n.t("sdaqRegisterLabel5")}
-            </Text>
             <View
               style={
                 passBoolean ? styles.passwordTextField : styles.textFieldError
@@ -117,26 +158,90 @@ function Register({ route, navigation }) {
                 placeholder="Confirm your password"
                 onChangeText={(text) => setConfirmPassword(text)}
               ></TextInput>
+              <TouchableOpacity
+                style={styles.icon1}
+                onPress={() => {
+                  setShowPassword(!showPassword);
+                }}
+              >
+                <FontAwesomeIcon
+                  style={styles.icon}
+                  icon={faLock}
+                  color="#43ef98"
+                  size={20}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.fieldContainer}>
+            <View style={styles.fieldView}>
+              <TextInput
+                style={styles.fieldInput}
+                placeholder="Votre numero de tel"
+                onChangeText={(text) => setEmail(text.toLowerCase())}
+              />
+              <TouchableOpacity
+                style={styles.icon1}
+                onPress={() => {
+                  setShowPassword(!showPassword);
+                }}
+              >
+                <FontAwesomeIcon
+                  style={styles.icon}
+                  icon={faPhone}
+                  color="#43ef98"
+                  size={20}
+                />
+              </TouchableOpacity>
             </View>
           </View>
           <Text>{error && <Text style={styles.error}> {error} </Text>} </Text>
           <TouchableOpacity style={styles.button} onPress={submitAction}>
-            <Text style={styles.buttonText}>
+            {/* <Text style={styles.buttonText}>
               {i18n.t("sdaqRegisterLabel6")}
-            </Text>
+            </Text> */}
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              colors={["#16be5a", "#95e88e", "#fff99a"]}
+              style={styles.linearGradient}
+            >
+              <Text style={styles.buttonTextLinear}>Sign in</Text>
+              <TouchableOpacity
+                style={styles.icon1}
+                onPress={() => {
+                  setShowPassword(!showPassword);
+                }}
+              >
+                <FontAwesomeIcon
+                  style={styles.icon}
+                  icon={faPaperPlane}
+                  color="#16be5a"
+                  size={20}
+                />
+              </TouchableOpacity>
+            </LinearGradient>
           </TouchableOpacity>
         </View>
-        <View>
-          <Text>
-            {i18n.t("sdaqRegisterLabel7")}{" "}
-            <Text
-              style={{ color: "blue" }}
-              onPress={() => navigation.navigate("loginScreen")}
-            >
-              {i18n.t("sdaqRegisterLabel8")}
-            </Text>{" "}
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            value={terms}
+            onValueChange={setTerms}
+            style={styles.checkbox}
+          />
+          <Text style={{ fontSize: 15, marginTop: 4 }}>
+            Accept terms and conditions
           </Text>
         </View>
+
+        <Image
+          source={require("../../assets/images/foodGrey.jpg")}
+          style={{
+            height: Dimensions.get("window").height * 0.3,
+            width: Dimensions.get("window").width,
+            opacity: 0.3,
+          }}
+        />
       </View>
     </SafeAreaView>
   );
@@ -167,20 +272,21 @@ const styles = StyleSheet.create({
   },
   icon1: {
     padding: 10,
-    marginLeft: 10,
-    marginTop: 5,
+    // marginRight: 2,
+    // marginTop: 5,
     // alignSelf: "flex-end",
   },
   textField: {
     borderStyle: "solid",
     borderColor: "grey",
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 22,
     margin: 10,
     paddingLeft: 20,
     height: 48,
     opacity: 0.8,
     color: "#000",
+    // elevation: 1,
   },
   h1: {
     fontSize: 25,
@@ -196,17 +302,16 @@ const styles = StyleSheet.create({
   form: {
     width: Dimensions.get("window").width - 32,
     marginTop: 30,
-    marginBottom: 30,
+    marginBottom: 3,
   },
   button: {
-    borderRadius: 8,
-    borderWidth: 1,
+    borderRadius: 22,
+    borderWidth: 0.2,
     backgroundColor: "#000",
     borderColor: "#000",
     width: Dimensions.get("window").width - 32,
-    height: 48,
+    height: Dimensions.get("window").height * 0.07,
     marginTop: 5,
-    // marginBottom: 93,
     alignItems: "center",
   },
   fieldContainer: {
@@ -219,7 +324,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   textFieldError: {
-    //flex: 1,
     flexDirection: "row",
     borderStyle: "solid",
     borderWidth: 1,
@@ -235,13 +339,27 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 15,
   },
-  passwordTextField: {
-    // flex: 1,
+  fieldView: {
     flexDirection: "row",
     borderStyle: "solid",
     borderColor: "grey",
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 22,
+    margin: 10,
+    paddingLeft: 20,
+    height: 48,
+    opacity: 1,
+  },
+  fieldInput: {
+    width: "85%",
+    color: "#000",
+  },
+  passwordTextField: {
+    flexDirection: "row",
+    borderStyle: "solid",
+    borderColor: "grey",
+    borderWidth: 1,
+    borderRadius: 22,
     margin: 10,
     paddingLeft: 20,
     height: 48,
@@ -250,6 +368,44 @@ const styles = StyleSheet.create({
   passwordTextInput: {
     width: "85%",
     color: "#000",
+  },
+  formHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  formHeaderText: {
+    fontWeight: "bold",
+  },
+  linearGradient: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 22,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  buttonTextLinear: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    margin: 10,
+    // marginRight: 25,
+    color: "#fff",
+    backgroundColor: "transparent",
+  },
+  icon: {
+    alignSelf: "flex-end",
+    opacity: 0.9,
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    // marginBottom: 3,
+    alignSelf: "flex-start",
+    marginLeft: 20,
+  },
+  checkbox: {
+    // alignSelf: "center",
+    borderRadius: 40,
   },
 });
 export default Register;
